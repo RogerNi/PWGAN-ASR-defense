@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+PWGAN_Defense class, compatible with PyTorch nn.Module 
+(also in two varient versions supporting automatic config-loading and checkpoint-loading)
+As part of 11-785 Course Project
+Author: Ronghao Ni (ronghaon)
+Last revised Dec. 2022
+"""
+
+
 from torchaudio.functional import resample
 from functools import partial
 import torch
