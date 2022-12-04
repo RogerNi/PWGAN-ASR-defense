@@ -30,7 +30,7 @@ def logmelfilterbank_torch(
         pad_mode="reflect",
         return_complex=True
     )
-    spc = torch.abs(x_stft).T  # (#frames, #bins)
+    spc = torch.abs(x_stft).T.float()  # (#frames, #bins)
 
     # get mel basis
     fmin = 0 if fmin is None else fmin
@@ -49,7 +49,7 @@ def logmelfilterbank_torch(
 
     # return spc, mel_basis
     # return mel_basis
-    mel = torch.maximum(torch.FloatTensor([eps]).to(device), torch.mm(spc, mel_basis))
+    mel = torch.maximum(torch.FloatTensor([eps]).to(device), torch.mm(spc.squeeze(), mel_basis))
     # return mel
 
     if log_base is None:

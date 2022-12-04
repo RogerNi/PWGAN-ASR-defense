@@ -36,7 +36,7 @@ class PWGAN_Defense(torch.nn.Module):
         x = self.pre_resample(x)
         x = self.log_mel_feature(x)
         x = self.model.inference(x, normalize_before=True).view(-1)
-        return self.post_resample(x)
+        return self.post_resample(x).unsqueeze(0)
     
     def to(self, device):
         new_self = super(PWGAN_Defense, self).to(device)
