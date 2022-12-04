@@ -8,12 +8,13 @@ def logmelfilterbank_torch(
     fft_size=1024,
     hop_size=256,
     win_length=None,
-    window="hann",
+    window=None,
     num_mels=80,
     fmin=None,
     fmax=None,
     eps=1e-10,
     log_base=10.0,
+    device='cpu'
 ):
     """Compute log-Mel filterbank feature using Torch operations.
     Based on Parallel WaveGAN Implementation but replace all operation 
@@ -25,7 +26,7 @@ def logmelfilterbank_torch(
         n_fft=fft_size,
         hop_length=hop_size,
         win_length=win_length,
-        window=torch.hann_window(win_length),
+        window=window,
         pad_mode="reflect",
         return_complex=True
     )
@@ -43,10 +44,12 @@ def logmelfilterbank_torch(
         norm='slaney',
         mel_scale='slaney'
     )
+    
+    mel_basis = mel_basis.to(device)
 
     # return spc, mel_basis
     # return mel_basis
-    mel = torch.maximum(torch.FloatTensor([eps]), torch.mm(spc, mel_basis))
+    mel = torch.maximum(torch.FloatTensor([eps]).to(device), torch.mm(spc, mel_basis))
     # return mel
 
     if log_base is None:
