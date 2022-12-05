@@ -45,6 +45,11 @@ class PWGAN_Defense(torch.nn.Module):
         self.model = model
         
     def forward(self, x):
+        try:    
+            self.model.remove_weight_norm()
+        except:
+            pass
+        self.model.eval()
         x = self.pre_resample(x)
         x = self.log_mel_feature(x)
         x = self.model.inference(x, normalize_before=True).view(-1)
