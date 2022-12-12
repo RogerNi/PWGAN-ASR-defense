@@ -316,7 +316,7 @@ def write_dataset(bens, advs, data_path, config, mean, scale):
         resampled_ben = librosa.resample(bens[i], orig_sr=16000, target_sr=24000)
         resampled_adv = librosa.resample(advs[i], orig_sr=16000, target_sr=24000)
         adv_feature = logmelfilterbank(
-            resampled_adv,
+            resampled_adv[0],
             sampling_rate=config["sampling_rate"],
             hop_size=config["hop_size"],
             fft_size=config["fft_size"],
